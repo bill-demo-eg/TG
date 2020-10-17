@@ -54,18 +54,16 @@ resource "aws_security_group" "web-node" {
   vpc_id      = aws_vpc.web_vpc.id
 
   ingress {
-    from_port = 80
-    to_port   = 80
-    protocol  = "tcp"
-    cidr_blocks = [
-    "0.0.0.0/0"]
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["<cidr>"]
   }
   ingress {
-    from_port = 22
-    to_port   = 22
-    protocol  = "tcp"
-    cidr_blocks = [
-    "0.0.0.0/0"]
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["<cidr>"]
   }
   egress {
     from_port = 0
@@ -176,6 +174,10 @@ resource "aws_s3_bucket" "flowbucket" {
     Name        = "${local.resource_prefix.value}-flowlogs"
     Environment = local.resource_prefix.value
   }
+
+  versioning {
+    enabled = true
+  }
 }
 
 output "ec2_public_dns" {
@@ -196,4 +198,30 @@ output "public_subnet" {
 output "public_subnet2" {
   description = "The ID of the Public subnet"
   value       = aws_subnet.web_subnet2.id
+}
+
+resource "aws_s3_bucket_policy" "flowbucket" {
+  bucket = "${aws_s3_bucket.flowbucket.id}"
+
+  policy = <<POLICY
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "flowbucket-restrict-access-to-users-or-roles",
+      "Effect": "Allow",
+      "Principal": [
+        {
+          "AWS": [
+            "arn:aws:iam::##acount_id##:role/##role_name##",
+            "arn:aws:iam::##acount_id##:user/##user_name##"
+          ]
+        }
+      ],
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::${aws_s3_bucket.flowbucket.id}/*"
+    }
+  ]
+}
+POLICY
 }

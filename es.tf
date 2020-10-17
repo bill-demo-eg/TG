@@ -14,6 +14,12 @@ resource "aws_elasticsearch_domain" "monitoring-framework" {
     ebs_enabled = true
     volume_size = 30
   }
+
+  log_publishing_options {
+    log_type                 = "<log_type>"
+    enabled                  = true
+    cloudwatch_log_group_arn = "<cloudwatch_log_group_arn>"
+  }
 }
 
 data aws_iam_policy_document "policy" {

@@ -10,7 +10,8 @@ resource "aws_iam_user" "user" {
 }
 
 resource "aws_iam_access_key" "user" {
-  user = aws_iam_user.user.name
+  user   = aws_iam_user.user.name
+  status = "Inactive"
 }
 
 resource "aws_iam_user_policy" "userpolicy" {
