@@ -1,1 +1,3 @@
 # TG
+
+[![IaC](https://app.soluble.cloud/api/v1/public/badges/3e26113b-8246-4ab5-8e47-61a6ca0bc7c4.svg)](https://app.soluble.cloud/repos/details/github.com/bill-demo-eg/tg)  [![HIPAA](https://app.soluble.cloud/api/v1/public/badges/2fb1a6b0-052f-40dc-b15e-45e7febe116e.svg)](https://app.soluble.cloud/repos/details/github.com/bill-demo-eg/tg)  [![CIS](https://app.soluble.cloud/api/v1/public/badges/cc8e5e23-9834-427d-96d1-8abc6ece273c.svg)](https://app.soluble.cloud/repos/details/github.com/bill-demo-eg/tg)  
